@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">AgriSeller</string>
+
+    <string-array name="product_categories">
+        <item>Legumes</item>
+        <item>Grains</item>
+        <item>Fresh</item>
+    </string-array>
+
+</resources>

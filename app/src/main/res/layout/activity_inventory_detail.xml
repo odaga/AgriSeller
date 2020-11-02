@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.InventoryDetailActivity">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.elyeproj.loaderviewlibrary.LoaderImageView
+                android:id="@+id/image_view_inventory_detail"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_margin="5dp" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/detail_inventory_name_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Product Name: "
+                        android:textSize="20sp" />
+
+
+                    <com.elyeproj.loaderviewlibrary.LoaderTextView
+                        android:id="@+id/detail_inventory_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="22dp"
+                        android:layout_toEndOf="@id/detail_inventory_name_label"
+                        android:text="Product Name"
+                        android:textColor="@android:color/black"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/detail_inventory_price_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/detail_inventory_name_label"
+                        android:layout_marginTop="20dp"
+                        android:text="Price: "
+                        android:textSize="20sp" />
+
+
+                    <com.elyeproj.loaderviewlibrary.LoaderTextView
+                        android:id="@+id/detail_inventory_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/detail_inventory_name"
+                        android:layout_alignBottom="@+id/detail_inventory_price_label"
+                        android:layout_marginStart="105dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="0dp"
+                        android:layout_toEndOf="@id/detail_inventory_price_label"
+                        android:text="Product Price"
+                        android:textColor="@android:color/black"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/inventory_detail_approval_status_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/detail_inventory_price_label"
+                        android:layout_marginTop="20dp"
+                        android:text="Approval Status:"
+                        android:textSize="20sp" />
+
+                    <com.elyeproj.loaderviewlibrary.LoaderTextView
+                        android:id="@+id/inventory_detail_approval_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/detail_inventory_price"
+                        android:layout_marginStart="13dp"
+                        android:layout_marginTop="18dp"
+                        android:layout_toEndOf="@+id/inventory_detail_approval_status_label"
+                        android:text="Product Approval Status"
+                        android:textColor="@android:color/black"
+                        android:textSize="20sp" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_margin="5dp"
+                android:padding="5dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/inventory_description_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="Description"
+                        android:textSize="20sp" />
+
+                    <com.elyeproj.loaderviewlibrary.LoaderTextView
+                        android:id="@+id/inventory_detail_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/inventory_description_label"
+                        android:layout_margin="10dp"
+                        android:textColor="@android:color/black"
+                        android:textSize="15sp" />
+
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+
+
+</LinearLayout>
