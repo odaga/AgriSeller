@@ -52,7 +52,7 @@
         android:layout_marginBottom="40dp"
         android:layout_marginRight="16dp"
         android:layout_marginLeft="16dp"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/rounded_corner_button_style"
         android:text="next"
         android:textColor="@android:color/white" />
 

@@ -3,6 +3,7 @@ package com.ugtechie.agriseller.activities;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -49,6 +50,10 @@ public class AddNewProductImage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_product_image);
+
+        //Initializing the toolbar
+        Toolbar mActionBarToolbar = findViewById(R.id.toolbar);
+        mActionBarToolbar.setTitle("Add New Product Image");
 
 
         //Setting up widgets
@@ -104,6 +109,7 @@ public class AddNewProductImage extends AppCompatActivity {
                                     Intent intent = new Intent(AddNewProductImage.this, AddProductDetailsActivity.class);
                                     intent.putExtra("Uploaded_product_Image_url",uploadedProductImageUrl);
                                     startActivity(intent);
+                                    finish();
                                 }
                             });
 
@@ -143,10 +149,6 @@ public class AddNewProductImage extends AppCompatActivity {
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
                 && data != null && data.getData() != null) {
             mImageUri = data.getData();
-            //Load selected image into the upload image view
-            //Picasso.with(this).load(mImageUri).into(imageViewProductImagePreview);
-            //When Picasso is not used this is a good alternative
-            // mImageView.setImageURI(mImageUri);
             Picasso.get().load(mImageUri).into(imageViewProductImagePreview);
         }
     }

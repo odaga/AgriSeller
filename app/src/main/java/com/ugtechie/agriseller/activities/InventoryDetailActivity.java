@@ -2,6 +2,7 @@ package com.ugtechie.agriseller.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -35,6 +36,10 @@ public class InventoryDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inventory_detail);
+
+        //Initializing the toolbar
+        Toolbar mActionBarToolbar = findViewById(R.id.toolbar);
+        mActionBarToolbar.setTitle("My Inventory");
 
         db = FirebaseFirestore.getInstance();
         CollectionReference InventoryRef = db.collection("Submitted Products");

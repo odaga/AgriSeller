@@ -2,6 +2,7 @@ package com.ugtechie.agriseller.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -38,14 +39,18 @@ public class AddProductDetailsActivity extends AppCompatActivity implements Adap
 
     String spinnerCategorySelected;
 
-    private FirebaseFirestore db;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product_details);
 
-        db = FirebaseFirestore.getInstance();
+       //FirebaseFirestore  db = FirebaseFirestore.getInstance();
+
+        //Initializing the toolbar
+        Toolbar mActionBarToolbar = findViewById(R.id.toolbar);
+        mActionBarToolbar.setTitle("My Orders");
 
         imageView = findViewById(R.id.uploaded_image_preview);
         editTextProductName = findViewById(R.id.edit_text_add_product_name);
@@ -81,12 +86,13 @@ public class AddProductDetailsActivity extends AppCompatActivity implements Adap
                 else if (productPrice.isEmpty())
                     editTextProductPrice.setError("Product price is required");
                 else {
-                    SubmitProduct(productName, productDescription, productPrice, spinnerCategorySelected);
+                    //SubmitProduct(productName, productDescription, productPrice, spinnerCategorySelected);
                 }
             }
         });
     }
 
+    /*
     private void SubmitProduct(String productName, String productDescription, String productPrice, String productCategory) {
         //Initialise the progress dialog
         final ProgressDialog progressDialog = new ProgressDialog(this);
@@ -95,7 +101,7 @@ public class AddProductDetailsActivity extends AppCompatActivity implements Adap
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
 
-        CollectionReference submittedProductRef = db.collection("Submitted Products");
+        //CollectionReference submittedProductRef = db.collection("Submitted Products");
 
         ProductModel newProduct = new ProductModel(
                 productName,
@@ -126,6 +132,7 @@ public class AddProductDetailsActivity extends AppCompatActivity implements Adap
                     }
                 });
     }
+    */
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
