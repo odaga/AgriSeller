@@ -22,6 +22,10 @@ public class InventoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_inventory);
 
         //Initializing the toolbar
+       // Toolbar mActionBarToolbar = findViewById(R.id.toolbar);
+       // mActionBarToolbar.setTitle("My Inventory");
+
+        //Initializing the toolbar
         Toolbar mActionBarToolbar = findViewById(R.id.toolbar);
         mActionBarToolbar.setTitle("My Inventory");
 

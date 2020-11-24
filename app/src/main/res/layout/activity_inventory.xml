@@ -6,6 +6,10 @@
     android:orientation="vertical"
     tools:context=".activities.InventoryActivity">
 
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/inventory_recyclerview"
         android:layout_width="match_parent"
