@@ -29,7 +29,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/image_view_image_upload"
         android:layout_centerHorizontal="true"
-        android:text="Choose product Image" />
+        android:text="Choose product Image"
+        android:background="@color/colorPrimary"/>
 
 
 
