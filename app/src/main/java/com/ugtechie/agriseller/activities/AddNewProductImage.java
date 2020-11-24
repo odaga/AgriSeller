@@ -51,6 +51,7 @@ public class AddNewProductImage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_product_image);
 
+
         //Initializing the toolbar
         Toolbar mActionBarToolbar = findViewById(R.id.toolbar);
         mActionBarToolbar.setTitle("Add New Product Image");

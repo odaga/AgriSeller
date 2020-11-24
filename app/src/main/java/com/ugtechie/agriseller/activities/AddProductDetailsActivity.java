@@ -50,7 +50,7 @@ public class AddProductDetailsActivity extends AppCompatActivity implements Adap
 
         //Initializing the toolbar
         Toolbar mActionBarToolbar = findViewById(R.id.toolbar);
-        mActionBarToolbar.setTitle("My Orders");
+        mActionBarToolbar.setTitle("Product Details");
 
         imageView = findViewById(R.id.uploaded_image_preview);
         editTextProductName = findViewById(R.id.edit_text_add_product_name);
