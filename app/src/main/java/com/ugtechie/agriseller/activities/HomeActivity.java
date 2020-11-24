@@ -12,7 +12,7 @@ import com.ugtechie.agriseller.R;
 public class HomeActivity extends AppCompatActivity {
     private static final String TAG = "HomeActivity";
 
-    private CardView cardViewAddNewProduct, cardViewProductInventory;
+    private CardView cardViewAddNewProduct, cardViewProductInventory, cardViewWallet, cardViewOrders;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +21,10 @@ public class HomeActivity extends AppCompatActivity {
 
         cardViewAddNewProduct = findViewById(R.id.card_add_product);
         cardViewProductInventory = findViewById(R.id.Card_farmer_inventory);
+        cardViewWallet = findViewById(R.id.card_farmer_wallet);
+        cardViewOrders = findViewById(R.id.card_farmer_view_orders);
+
+
 
         cardViewAddNewProduct.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,6 +37,20 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(HomeActivity.this, InventoryActivity.class));
+            }
+        });
+
+        cardViewWallet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), WalletActivity.class));
+            }
+        });
+
+        cardViewOrders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), OrdersActivity.class));
             }
         });
 
