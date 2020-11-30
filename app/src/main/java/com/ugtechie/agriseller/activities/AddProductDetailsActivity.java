@@ -25,6 +25,12 @@ import com.squareup.picasso.Picasso;
 import com.ugtechie.agriseller.R;
 
 import Models.ProductModel;
+import api.ProductService;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AddProductDetailsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private static final String TAG = "AddProductDetailsActivity";
@@ -52,7 +58,7 @@ public class AddProductDetailsActivity extends AppCompatActivity implements Adap
         editTextProductDescription = findViewById(R.id.edit_text_add_product_description);
         editTextProductPrice = findViewById(R.id.edit_text_add_product_price);
         buttonSubmitProductData = findViewById(R.id.button_submit_product_data);
-        categorySpinner = (Spinner)findViewById(R.id.product_category_spinner);
+        categorySpinner = (Spinner) findViewById(R.id.product_category_spinner);
 
         // Creating an ArrayAdapter using the String array and a default Spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -62,7 +68,7 @@ public class AddProductDetailsActivity extends AppCompatActivity implements Adap
         categorySpinner.setOnItemSelectedListener(this);
 
 
-        productImageUrl  = getIntent().getExtras().getString("Uploaded_product_Image_url");
+        productImageUrl = getIntent().getExtras().getString("Uploaded_product_Image_url");
         Picasso.get().load(productImageUrl).into(imageView);
 
         buttonSubmitProductData.setOnClickListener(new View.OnClickListener() {
@@ -72,7 +78,7 @@ public class AddProductDetailsActivity extends AppCompatActivity implements Adap
                 String productName = editTextProductName.getText().toString();
                 String productDescription = editTextProductDescription.getText().toString();
                 String productPrice = editTextProductPrice.getText().toString();
-               // String productCategory = editTextProductCategory.getText().toString();
+                // String productCategory = editTextProductCategory.getText().toString();
 
                 if (productName.isEmpty())
                     editTextProductName.setError("Product Name is required");
@@ -81,8 +87,60 @@ public class AddProductDetailsActivity extends AppCompatActivity implements Adap
                 else if (productPrice.isEmpty())
                     editTextProductPrice.setError("Product price is required");
                 else {
-                    SubmitProduct(productName, productDescription, productPrice, spinnerCategorySelected);
+                    //SubmitProduct(productName, productDescription, productPrice, spinnerCategorySelected);
+                    SaveProductData(productName, productDescription, productPrice, spinnerCategorySelected);
                 }
+            }
+        });
+    }
+
+    private void SaveProductData(String productName, String productDescription, String productPrice, String spinnerCategorySelected) {
+        ProductModel newProduct = new ProductModel(
+                "",
+                productName,
+                productDescription,
+                // productCategory,
+                spinnerCategorySelected,
+                productImageUrl,
+                productPrice,
+                FirebaseAuth.getInstance().getCurrentUser().getUid(),
+                //false,
+                ""
+        );
+
+        //Initialize ProgressDialog
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Submitting farm...");
+        progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
+
+        //Setting up retrofit
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://lit-earth-63598.herokuapp.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        ProductService productService = retrofit.create(ProductService.class);
+        Call<ProductModel> call = productService.submitProduct(newProduct);
+
+        call.enqueue(new Callback<ProductModel>() {
+            @Override
+            public void onResponse(Call<ProductModel> call, Response<ProductModel> response) {
+                if (!response.isSuccessful()) {
+                    progressDialog.dismiss();
+                    Toast.makeText(AddProductDetailsActivity.this, "Could not submit product code: " + response.code(), Toast.LENGTH_LONG).show();
+                }
+                progressDialog.dismiss();
+                Toast.makeText(AddProductDetailsActivity.this, "Product Submitted", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                finish();
+
+            }
+
+            @Override
+            public void onFailure(Call<ProductModel> call, Throwable t) {
+                progressDialog.dismiss();
+                Toast.makeText(AddProductDetailsActivity.this, "Product submission failed", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -98,9 +156,10 @@ public class AddProductDetailsActivity extends AppCompatActivity implements Adap
         CollectionReference submittedProductRef = db.collection("Submitted Products");
 
         ProductModel newProduct = new ProductModel(
+                "",
                 productName,
                 productDescription,
-               // productCategory,
+                // productCategory,
                 spinnerCategorySelected,
                 productImageUrl,
                 productPrice,
@@ -130,7 +189,7 @@ public class AddProductDetailsActivity extends AppCompatActivity implements Adap
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         spinnerCategorySelected = parent.getItemAtPosition(position).toString();
-       // Toast.makeText(this, spinnerCategorySelected, Toast.LENGTH_SHORT).show();
+        // Toast.makeText(this, spinnerCategorySelected, Toast.LENGTH_SHORT).show();
     }
 
     @Override

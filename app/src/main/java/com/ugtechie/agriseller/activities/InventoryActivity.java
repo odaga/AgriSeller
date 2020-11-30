@@ -32,9 +32,10 @@ public class InventoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inventory);
 
-        setUpRecyclerView();
+       // setUpRecyclerView();
     }
 
+    /*
     private void setUpRecyclerView() {
 
         Query query = SubmittedProductsRef.whereEqualTo("productOwnerId", FirebaseAuth.getInstance().getCurrentUser().getUid());
@@ -61,6 +62,8 @@ public class InventoryActivity extends AppCompatActivity {
             }
         });
     }
+
+    */
 
     @Override
     protected void onStart() {

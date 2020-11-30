@@ -8,7 +8,7 @@ public class ProductModel {
     private String productImageUrl;
     private String productPrice;
     private String productOwnerId;
-  //  private Boolean productApprovalStatus;
+    //  private Boolean productApprovalStatus;
     private String productBuyerId;
 
     public ProductModel() {
@@ -29,10 +29,6 @@ public class ProductModel {
 
     public String get_id() {
         return _id;
-    }
-
-    public void set_id(String _id) {
-        this._id = _id;
     }
 
     public String getProductName() {

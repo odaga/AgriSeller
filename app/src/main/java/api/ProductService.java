@@ -9,7 +9,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
-public interface productService {
+public interface ProductService {
     @POST("products")
     Call<ProductModel> submitProduct(@Body ProductModel product);
 
