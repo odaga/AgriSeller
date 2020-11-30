@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,7 +21,7 @@ import com.ugtechie.agriseller.R;
 import Models.ProductModel;
 
 public class ProductInventoryAdapter extends FirestoreRecyclerAdapter<ProductModel, ProductInventoryAdapter.InventoryHolder> {
-    private  OnItemClickListener listener;
+    private AdapterView.OnItemClickListener listener;
 
 
     public ProductInventoryAdapter(@NonNull FirestoreRecyclerOptions<ProductModel> options) {
@@ -32,7 +33,10 @@ public class ProductInventoryAdapter extends FirestoreRecyclerAdapter<ProductMod
         //holder.textViewFarmTitle.setText(model.getFarmName());
         holder.inventoryProductName.setText(model.getProductName());
         holder.inventoryProductPrice.setText("UGX"+model.getProductPrice());
-        Picasso.get().load(model.getProductImageUrl()).into(holder.inventoryProductImage);
+        if (model.getProductImageUrl() != null)
+            Picasso.get().load(model.getProductImageUrl()).into(holder.inventoryProductImage);
+        else
+            Picasso.get().load(model.getProductImageUrl()).into(holder.inventoryProductImage);
     }
 
     @NonNull
@@ -55,7 +59,6 @@ public class ProductInventoryAdapter extends FirestoreRecyclerAdapter<ProductMod
             inventoryProductName = itemView.findViewById(R.id.single_inventory_product_name);
             inventoryProductPrice = itemView.findViewById(R.id.single_inventory_product_price);
 
-
             //Setting click listener on the farm card
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -63,7 +66,7 @@ public class ProductInventoryAdapter extends FirestoreRecyclerAdapter<ProductMod
                     int position = getAdapterPosition();
 
                     if (position != RecyclerView.NO_POSITION && listener != null) {
-                        listener.onItemClick(getSnapshots().getSnapshot(position), position);
+                       // listener.onItemClick(getSnapshots().getSnapshot(position), position);
                     }
 
                 }
@@ -71,7 +74,7 @@ public class ProductInventoryAdapter extends FirestoreRecyclerAdapter<ProductMod
 
         }
     }
-
+/*
     public interface  OnItemClickListener {
         void  onItemClick(DocumentSnapshot documentSnapshot, int position);
     }
@@ -79,4 +82,6 @@ public class ProductInventoryAdapter extends FirestoreRecyclerAdapter<ProductMod
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
     }
+    */
 }
+

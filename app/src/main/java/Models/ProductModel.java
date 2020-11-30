@@ -1,6 +1,7 @@
 package Models;
 
 public class ProductModel {
+    private String _id;
     private String productName;
     private String productDescription;
     private String productCategory;
@@ -14,7 +15,9 @@ public class ProductModel {
         //Empty constructor needed by Firebase
     }
 
-    public ProductModel(String productName, String productDescription, String productCategory, String productImageUrl, String productPrice, String productOwnerId, String productBuyerId) {
+
+    public ProductModel(String _id, String productName, String productDescription, String productCategory, String productImageUrl, String productPrice, String productOwnerId, String productBuyerId) {
+        this._id = _id;
         this.productName = productName;
         this.productDescription = productDescription;
         this.productCategory = productCategory;
@@ -22,6 +25,14 @@ public class ProductModel {
         this.productPrice = productPrice;
         this.productOwnerId = productOwnerId;
         this.productBuyerId = productBuyerId;
+    }
+
+    public String get_id() {
+        return _id;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
     }
 
     public String getProductName() {
