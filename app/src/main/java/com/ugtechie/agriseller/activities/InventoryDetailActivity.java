@@ -57,10 +57,10 @@ public class InventoryDetailActivity extends AppCompatActivity {
                         ProductModel inventory = documentSnapshot.toObject(ProductModel.class);
 
                         //Update UI with data from the document
-                        Picasso.get().load(inventory.getProductImageUrl()).into(inventoryDetailImage);
-                        textViewName.setText(inventory.getProductName());
-                        textViewPrice.setText("UGX"+inventory.getProductPrice());
-                        textViewDescription.setText(inventory.getProductDescription());
+                        Picasso.get().load(inventory.getProductImage()).into(inventoryDetailImage);
+                        textViewName.setText(inventory.getName());
+                        textViewPrice.setText("UGX"+inventory.getPrice());
+                        textViewDescription.setText(inventory.getPrice());
                         /*
                         if (inventory.getProductApprovalStatus() == false) {
                             textViewApprovalStatus.setText("Not Approved");

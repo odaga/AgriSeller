@@ -31,12 +31,12 @@ public class ProductInventoryAdapter extends FirestoreRecyclerAdapter<ProductMod
     @Override
     protected void onBindViewHolder(@NonNull InventoryHolder holder, int position, @NonNull ProductModel model) {
         //holder.textViewFarmTitle.setText(model.getFarmName());
-        holder.inventoryProductName.setText(model.getProductName());
-        holder.inventoryProductPrice.setText("UGX"+model.getProductPrice());
-        if (model.getProductImageUrl() != null)
-            Picasso.get().load(model.getProductImageUrl()).into(holder.inventoryProductImage);
+        holder.inventoryProductName.setText(model.getName());
+        holder.inventoryProductPrice.setText("UGX"+model.getPrice());
+        if (model.getProductImage() != null)
+            Picasso.get().load(model.getProductImage()).into(holder.inventoryProductImage);
         else
-            Picasso.get().load(model.getProductImageUrl()).into(holder.inventoryProductImage);
+            Picasso.get().load(model.getProductImage()).into(holder.inventoryProductImage);
     }
 
     @NonNull

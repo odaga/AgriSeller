@@ -3,6 +3,7 @@ package com.ugtechie.agriseller.activities;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -49,6 +50,13 @@ public class AddNewProductImage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_product_image);
+
+
+        //Setting up toolbar
+        Toolbar mActionBarToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(mActionBarToolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle("Upload Product Image");
 
 
         //Setting up widgets
@@ -104,6 +112,7 @@ public class AddNewProductImage extends AppCompatActivity {
                                     Intent intent = new Intent(AddNewProductImage.this, AddProductDetailsActivity.class);
                                     intent.putExtra("Uploaded_product_Image_url",uploadedProductImageUrl);
                                     startActivity(intent);
+                                    finish();
                                 }
                             });
 

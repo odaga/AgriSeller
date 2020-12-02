@@ -2,49 +2,49 @@ package Models;
 
 public class ProductModel {
     private String _id;
-    private String productName;
-    private String productDescription;
+    private String name;
+    private String description;
     private String productCategory;
-    private String productImageUrl;
-    private String productPrice;
-    private String productOwnerId;
-    //  private Boolean productApprovalStatus;
-    private String productBuyerId;
+    private String productImage;
+    private String price;
+    private Boolean approvalStatus;
+    private String OwnerId;
+    private String BuyerId;
 
     public ProductModel() {
         //Empty constructor needed by Firebase
     }
 
-
-    public ProductModel(String _id, String productName, String productDescription, String productCategory, String productImageUrl, String productPrice, String productOwnerId, String productBuyerId) {
+    public ProductModel(String _id, String name, String description, String productCategory, String productImage, String price, Boolean approvalStatus, String ownerId, String buyerId) {
         this._id = _id;
-        this.productName = productName;
-        this.productDescription = productDescription;
+        this.name = name;
+        this.description = description;
         this.productCategory = productCategory;
-        this.productImageUrl = productImageUrl;
-        this.productPrice = productPrice;
-        this.productOwnerId = productOwnerId;
-        this.productBuyerId = productBuyerId;
+        this.productImage = productImage;
+        this.price = price;
+        this.approvalStatus = approvalStatus;
+        OwnerId = ownerId;
+        BuyerId = buyerId;
     }
 
     public String get_id() {
         return _id;
     }
 
-    public String getProductName() {
-        return productName;
+    public String getName() {
+        return name;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getProductDescription() {
-        return productDescription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setProductDescription(String productDescription) {
-        this.productDescription = productDescription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getProductCategory() {
@@ -55,35 +55,43 @@ public class ProductModel {
         this.productCategory = productCategory;
     }
 
-    public String getProductImageUrl() {
-        return productImageUrl;
+    public String getProductImage() {
+        return productImage;
     }
 
-    public void setProductImageUrl(String productImageUrl) {
-        this.productImageUrl = productImageUrl;
+    public void setProductImage(String productImage) {
+        this.productImage = productImage;
     }
 
-    public String getProductPrice() {
-        return productPrice;
+    public String getPrice() {
+        return price;
     }
 
-    public void setProductPrice(String productPrice) {
-        this.productPrice = productPrice;
+    public void setPrice(String price) {
+        this.price = price;
     }
 
-    public String getProductOwnerId() {
-        return productOwnerId;
+    public Boolean getApprovalStatus() {
+        return approvalStatus;
     }
 
-    public void setProductOwnerId(String productOwnerId) {
-        this.productOwnerId = productOwnerId;
+    public void setApprovalStatus(Boolean approvalStatus) {
+        this.approvalStatus = approvalStatus;
     }
 
-    public String getProductBuyerId() {
-        return productBuyerId;
+    public String getOwnerId() {
+        return OwnerId;
     }
 
-    public void setProductBuyerId(String productBuyerId) {
-        this.productBuyerId = productBuyerId;
+    public void setOwnerId(String ownerId) {
+        OwnerId = ownerId;
+    }
+
+    public String getBuyerId() {
+        return BuyerId;
+    }
+
+    public void setBuyerId(String buyerId) {
+        BuyerId = buyerId;
     }
 }

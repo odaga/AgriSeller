@@ -95,22 +95,23 @@ public class AddProductDetailsActivity extends AppCompatActivity implements Adap
     }
 
     private void SaveProductData(String productName, String productDescription, String productPrice, String spinnerCategorySelected) {
+
         ProductModel newProduct = new ProductModel(
                 "",
                 productName,
                 productDescription,
-                // productCategory,
                 spinnerCategorySelected,
                 productImageUrl,
                 productPrice,
+                false,
                 FirebaseAuth.getInstance().getCurrentUser().getUid(),
-                //false,
                 ""
         );
 
+
         //Initialize ProgressDialog
         final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Submitting farm...");
+        progressDialog.setMessage("Submitting product information...");
         progressDialog.setCancelable(false);
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
@@ -145,6 +146,7 @@ public class AddProductDetailsActivity extends AppCompatActivity implements Adap
         });
     }
 
+    /*
     private void SubmitProduct(String productName, String productDescription, String productPrice, String productCategory) {
         //Initialise the progress dialog
         final ProgressDialog progressDialog = new ProgressDialog(this);
@@ -185,6 +187,7 @@ public class AddProductDetailsActivity extends AppCompatActivity implements Adap
                     }
                 });
     }
+    */
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
