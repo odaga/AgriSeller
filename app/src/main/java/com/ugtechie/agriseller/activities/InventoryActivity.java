@@ -1,4 +1,4 @@
-package com.ugtechie.agriseller.activities;
+ package com.ugtechie.agriseller.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
