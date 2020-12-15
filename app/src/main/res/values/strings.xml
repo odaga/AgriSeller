@@ -2,9 +2,9 @@
     <string name="app_name">AgriSeller</string>
 
     <string-array name="product_categories">
-        <item>Legumes</item>
-        <item>Grains</item>
-        <item>Fresh</item>
+        <item>Coffee</item>
+        <item>Maize</item>
+        <item>Irish Potato</item>
     </string-array>
 
 </resources>

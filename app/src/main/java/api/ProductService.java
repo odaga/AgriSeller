@@ -24,5 +24,9 @@ public interface ProductService {
     @GET("/products/inventory/{productOwnerId}")
     Call<List<ProductModel>> getMyInventory(@Path("productOwnerId") String productOwnerId);
 
+    //Get product orders for farmer
+    @GET("orders/{productOwnerId}")
+    Call<List<ProductModel>> getMyOrders(@Path("productOwnerId") String productOwnerId);
+
 
 }

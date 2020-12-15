@@ -2,6 +2,7 @@ package com.ugtechie.agriseller.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -52,6 +53,12 @@ public class AddProductDetailsActivity extends AppCompatActivity implements Adap
         setContentView(R.layout.activity_add_product_details);
 
         db = FirebaseFirestore.getInstance();
+
+        //Setting up toolbar
+        Toolbar mActionBarToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(mActionBarToolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle("Add Product Details");
 
         imageView = findViewById(R.id.uploaded_image_preview);
         editTextProductName = findViewById(R.id.edit_text_add_product_name);
