@@ -36,7 +36,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class AddProductDetailsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private static final String TAG = "AddProductDetailsActivity";
 
-    private EditText editTextProductName, editTextProductDescription, editTextProductPrice;
+    private EditText editTextProductName, editTextProductDescription, editTextProductPrice, editTextProductStock;
     private EditText editTextProductCategory;
     private Button buttonSubmitProductData;
     private ImageView imageView;
@@ -64,6 +64,7 @@ public class AddProductDetailsActivity extends AppCompatActivity implements Adap
         editTextProductName = findViewById(R.id.edit_text_add_product_name);
         editTextProductDescription = findViewById(R.id.edit_text_add_product_description);
         editTextProductPrice = findViewById(R.id.edit_text_add_product_price);
+        editTextProductStock = findViewById(R.id.edit_text_add_product_stock);
         buttonSubmitProductData = findViewById(R.id.button_submit_product_data);
         categorySpinner = (Spinner) findViewById(R.id.product_category_spinner);
 
@@ -85,6 +86,7 @@ public class AddProductDetailsActivity extends AppCompatActivity implements Adap
                 String productName = editTextProductName.getText().toString();
                 String productDescription = editTextProductDescription.getText().toString();
                 String productPrice = editTextProductPrice.getText().toString();
+                int stock = Integer.parseInt(editTextProductStock.getText().toString());
                 // String productCategory = editTextProductCategory.getText().toString();
 
                 if (productName.isEmpty())
@@ -93,15 +95,17 @@ public class AddProductDetailsActivity extends AppCompatActivity implements Adap
                     editTextProductDescription.setError("Product Description is required");
                 else if (productPrice.isEmpty())
                     editTextProductPrice.setError("Product price is required");
+                else if (editTextProductStock.getText().toString().isEmpty())
+                    editTextProductStock.setError("Product stock size is required");
                 else {
                     //SubmitProduct(productName, productDescription, productPrice, spinnerCategorySelected);
-                    SaveProductData(productName, productDescription, productPrice, spinnerCategorySelected);
+                    SaveProductData(productName, productDescription, productPrice, stock, spinnerCategorySelected);
                 }
             }
         });
     }
 
-    private void SaveProductData(String productName, String productDescription, String productPrice, String spinnerCategorySelected) {
+    private void SaveProductData(String productName, String productDescription, String productPrice, int stock, String spinnerCategorySelected) {
 
         ProductModel newProduct = new ProductModel(
                 "",
@@ -110,6 +114,7 @@ public class AddProductDetailsActivity extends AppCompatActivity implements Adap
                 spinnerCategorySelected,
                 productImageUrl,
                 productPrice,
+                stock,
                 false,
                 FirebaseAuth.getInstance().getCurrentUser().getUid(),
                 ""
@@ -125,7 +130,7 @@ public class AddProductDetailsActivity extends AppCompatActivity implements Adap
 
         //Setting up retrofit
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://lit-earth-63598.herokuapp.com/")
+                .baseUrl("https://amis-1.herokuapp.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ProductService productService = retrofit.create(ProductService.class);
@@ -138,10 +143,13 @@ public class AddProductDetailsActivity extends AppCompatActivity implements Adap
                     progressDialog.dismiss();
                     Toast.makeText(AddProductDetailsActivity.this, "Could not submit product code: " + response.code(), Toast.LENGTH_LONG).show();
                 }
-                progressDialog.dismiss();
-                Toast.makeText(AddProductDetailsActivity.this, "Product Submitted", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-                finish();
+                else {
+                    progressDialog.dismiss();
+                    Toast.makeText(AddProductDetailsActivity.this, "Product Submitted", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                    finish();
+                }
+
 
             }
 
@@ -153,48 +161,6 @@ public class AddProductDetailsActivity extends AppCompatActivity implements Adap
         });
     }
 
-    /*
-    private void SubmitProduct(String productName, String productDescription, String productPrice, String productCategory) {
-        //Initialise the progress dialog
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Submitting product Information...");
-        progressDialog.setCancelable(false);
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.show();
-
-        CollectionReference submittedProductRef = db.collection("Submitted Products");
-
-        ProductModel newProduct = new ProductModel(
-                "",
-                productName,
-                productDescription,
-                // productCategory,
-                spinnerCategorySelected,
-                productImageUrl,
-                productPrice,
-                FirebaseAuth.getInstance().getCurrentUser().getUid(),
-                //false,
-                ""
-        );
-
-        submittedProductRef.add(newProduct)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        progressDialog.dismiss();
-                        Toast.makeText(AddProductDetailsActivity.this, "product Added Successfully", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(AddProductDetailsActivity.this, HomeActivity.class));
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        progressDialog.dismiss();
-                        Toast.makeText(AddProductDetailsActivity.this, "Product Not added", Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }
-    */
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

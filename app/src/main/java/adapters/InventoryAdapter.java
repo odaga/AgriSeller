@@ -1,5 +1,6 @@
 package adapters;
 
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.elyeproj.loaderviewlibrary.LoaderTextView;
 import com.squareup.picasso.Picasso;
 import com.ugtechie.agriseller.R;
 
@@ -39,12 +41,16 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.inve
         ImageView inventoryProductImage;
         TextView inventoryProductName;
         TextView inventoryProductPrice;
+        TextView inventoryProductStock;
+
+
 
         public inventoryViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
             inventoryProductImage = itemView.findViewById(R.id.single_inventory_product_image);
             inventoryProductName = itemView.findViewById(R.id.single_inventory_product_name);
             inventoryProductPrice = itemView.findViewById(R.id.single_inventory_product_price);
+            inventoryProductStock = itemView.findViewById(R.id.inventory_stock);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -80,6 +86,14 @@ public class InventoryAdapter extends RecyclerView.Adapter<InventoryAdapter.inve
         } else {
             Picasso.get().load(inventory.getProductImage()).into(holder.inventoryProductImage);
         }
+
+        if (inventory.getStock() < 10) {
+            holder.inventoryProductStock.setTextColor(Color.parseColor("#d61111"));
+            holder.inventoryProductStock.setText(String.valueOf(inventory.getStock()));
+        }
+        holder.inventoryProductStock.setText(String.valueOf(inventory.getStock()));
+
+
         /*
         try {
             holder.inventoryProductName.setText(inventory.getProductName());

@@ -19,6 +19,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.ugtechie.agriseller.R;
 
+import Models.Seller;
+import api.ProductService;
+import api.SellerService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -74,18 +77,14 @@ public class SignUpActivity extends AppCompatActivity {
 
         //Validating the user input
         if (firstName.isEmpty()) {
-            //Toast.makeText(this, "Please enter First name", Toast.LENGTH_SHORT).show();
             editTextFirstName.setError("First name is required");
         } else if (lastName.isEmpty()) {
-            // Toast.makeText(this, "Please enter Last name", Toast.LENGTH_SHORT).show();
             editTextLastName.setError("Last name is required");
         } else if (phoneNumber.isEmpty()) {
             editTextPhoneNumber.setError("Valid Phone Number is required");
         } else if (email.isEmpty()) {
-            //Toast.makeText(this, "An email is required", Toast.LENGTH_SHORT).show();
             editTextEmail.setError("Email is required");
         } else if (password.isEmpty()) {
-            //Toast.makeText(this, "A password is required", Toast.LENGTH_SHORT).show();
             editTextPassword.setError("Password is required");
         } else if (password.length() < 8) {
             editTextPassword.setError("Password must be at least 8 characters");
@@ -104,22 +103,32 @@ public class SignUpActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
 
-                            progressDialog.dismiss();
+                            //progressDialog.dismiss();
                             if (task.isSuccessful()) {
                                 //Sign in success
                                 Log.d(TAG, "onComplete: createUSerWith Email successful");
                                 FirebaseUser user = task.getResult().getUser();
                                 userId = mAuth.getCurrentUser().getUid();
 
-                                //Add profile data to FireStore users collection
-
-
+                                //Cresting the seller object to be passed to save profile method
+                                Seller newseller = new Seller(
+                                        firstName,
+                                        lastName,
+                                        email,
+                                        phoneNumber,
+                                        "",
+                                        "",//to be added after adding the location widget
+                                        userId
+                                );
+                                //Save seller profile
+                                saveSellerProfile(newseller);
+                                progressDialog.dismiss();
                                 //Go to home activity
-                                startHomeActivity();
+                                //startHomeActivity();
                             } else {
                                 Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                                progressDialog.dismiss();
                                 Toast.makeText(SignUpActivity.this, "Creating Account failed", Toast.LENGTH_SHORT).show();
-
                             }
                         }
                     });
@@ -129,7 +138,6 @@ public class SignUpActivity extends AppCompatActivity {
 
 
     private void startHomeActivity() {
-
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             Intent intent = new Intent(this, HomeActivity.class);
             //Intent intent = new Intent(this, UploadProfileImageActivity.class);
@@ -139,7 +147,37 @@ public class SignUpActivity extends AppCompatActivity {
         }
     }
 
-    //Save user data to firebase fireStore users collection
+    //Save seller profile
+    private void saveSellerProfile(Seller newSeller) {
+        //0758531384
+        //SETTING UP RETROFIT
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://amis-1.herokuapp.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        SellerService sellerService = retrofit.create(SellerService.class);
+        Call<Seller> call = sellerService.saveSellerProfile(newSeller);
+
+        call.enqueue(new Callback<Seller>() {
+            @Override
+            public void onResponse(Call<Seller> call, Response<Seller> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(SignUpActivity.this, "Failed with code: " + response.code(), Toast.LENGTH_SHORT).show();
+                } else {
+                    Log.d(TAG, "onResponse: Profile saved successfully");
+
+                    startHomeActivity();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Seller> call, Throwable t) {
+
+                Toast.makeText(SignUpActivity.this, "Failed to save profile", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
 
 
 }

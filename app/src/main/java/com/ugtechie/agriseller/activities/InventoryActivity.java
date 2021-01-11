@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -36,6 +37,7 @@ public class InventoryActivity extends AppCompatActivity {
     private static final String TAG = "InventoryActivity";
 
     private ProgressBar inventoryProgressBar;
+    private TextView inventoryText;
 
 
     @Override
@@ -49,6 +51,9 @@ public class InventoryActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("My Inventory");
         inventoryProgressBar = findViewById(R.id.inventory_progressbar);
+        inventoryText = findViewById(R.id.inventory_empty_text);
+        inventoryText.setVisibility(View.INVISIBLE);
+
 
         getMyInventory();
 
@@ -59,7 +64,7 @@ public class InventoryActivity extends AppCompatActivity {
         inventoryProgressBar.setVisibility(View.VISIBLE);
         //SETTING UP RETROFIT
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://lit-earth-63598.herokuapp.com/")
+                .baseUrl("https://amis-1.herokuapp.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ProductService productService = retrofit.create(ProductService.class);
@@ -71,6 +76,9 @@ public class InventoryActivity extends AppCompatActivity {
             public void onResponse(Call<List<ProductModel>> call, Response<List<ProductModel>> response) {
                 if (!response.isSuccessful()) {
                     Toast.makeText(InventoryActivity.this, "Could not get inventory. Error code: " +response.code(), Toast.LENGTH_SHORT).show();
+                    inventoryProgressBar.setVisibility(View.INVISIBLE);
+                    if (response.code() == 404)
+                        inventoryText.setVisibility(View.VISIBLE);
                 } else {
                     List<ProductModel> inventoryList = response.body();
                     buildRecyclerView(inventoryList);

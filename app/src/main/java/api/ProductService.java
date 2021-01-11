@@ -2,6 +2,7 @@ package api;
 
 import java.util.List;
 
+import Models.OrderModel;
 import Models.ProductModel;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -26,7 +27,7 @@ public interface ProductService {
 
     //Get product orders for farmer
     @GET("orders/{productOwnerId}")
-    Call<List<ProductModel>> getMyOrders(@Path("productOwnerId") String productOwnerId);
+    Call<List<OrderModel>> getMyOrders(@Path("productOwnerId") String productOwnerId);
 
 
 }

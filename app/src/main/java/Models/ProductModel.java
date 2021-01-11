@@ -7,23 +7,25 @@ public class ProductModel {
     private String productCategory;
     private String productImage;
     private String price;
+    private int stock;
     private Boolean approvalStatus;
-    private String OwnerId;
+    private String ownerId;
     private String BuyerId;
 
     public ProductModel() {
         //Empty constructor needed by Firebase
     }
 
-    public ProductModel(String _id, String name, String description, String productCategory, String productImage, String price, Boolean approvalStatus, String ownerId, String buyerId) {
+    public ProductModel(String _id, String name, String description, String productCategory, String productImage, String price, int stock, Boolean approvalStatus, String ownerId, String buyerId) {
         this._id = _id;
         this.name = name;
         this.description = description;
         this.productCategory = productCategory;
         this.productImage = productImage;
         this.price = price;
+        this.stock = stock;
         this.approvalStatus = approvalStatus;
-        OwnerId = ownerId;
+        this.ownerId = ownerId;
         BuyerId = buyerId;
     }
 
@@ -71,6 +73,14 @@ public class ProductModel {
         this.price = price;
     }
 
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
     public Boolean getApprovalStatus() {
         return approvalStatus;
     }
@@ -80,11 +90,11 @@ public class ProductModel {
     }
 
     public String getOwnerId() {
-        return OwnerId;
+        return ownerId;
     }
 
     public void setOwnerId(String ownerId) {
-        OwnerId = ownerId;
+        this.ownerId = ownerId;
     }
 
     public String getBuyerId() {

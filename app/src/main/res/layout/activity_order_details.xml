@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activities.InventoryDetailActivity">
+    tools:context=".activities.OrderDetailsActivity">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -16,7 +17,7 @@
             android:orientation="vertical">
 
             <com.elyeproj.loaderviewlibrary.LoaderImageView
-                android:id="@+id/image_view_inventory_detail"
+                android:id="@+id/order_image_view"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:layout_margin="5dp" />
@@ -41,7 +42,7 @@
 
 
                     <com.elyeproj.loaderviewlibrary.LoaderTextView
-                        android:id="@+id/detail_inventory_name"
+                        android:id="@+id/order_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="22dp"
@@ -84,7 +85,7 @@
                         android:textSize="20sp" />
 
                     <com.elyeproj.loaderviewlibrary.LoaderTextView
-                        android:id="@+id/inventory_detail_approval_status"
+                        android:id="@+id/order_detail_quantity"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/detail_inventory_price"
@@ -111,6 +112,5 @@
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-
 
 </LinearLayout>

@@ -16,8 +16,10 @@ import com.ugtechie.agriseller.R;
 
 import java.util.List;
 
+import Models.OrderModel;
 import Models.ProductModel;
 import adapters.InventoryAdapter;
+import adapters.OrderAdapter;
 import api.ProductService;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -48,8 +50,7 @@ public class OrdersActivity extends AppCompatActivity {
         ordersProgressBar = findViewById(R.id.orders_progressbar);
         ordersRecyclerview  = findViewById(R.id.orders_recyclerview);
         textViewNoOrdersYet = findViewById(R.id.no_orders_yet_text);
-
-
+        textViewNoOrdersYet.setVisibility(View.INVISIBLE);
 
         getMyOrders();
     }
@@ -59,42 +60,44 @@ public class OrdersActivity extends AppCompatActivity {
         ordersProgressBar.setVisibility(View.VISIBLE);
         //SETTING UP RETROFIT
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://lit-earth-63598.herokuapp.com/")
+                .baseUrl("https://amis-1.herokuapp.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ProductService productService = retrofit.create(ProductService.class);
-        Call<List<ProductModel>> call = productService.getMyOrders(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        Call<List<OrderModel>> call = productService.getMyOrders(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
 
-        call.enqueue(new Callback<List<ProductModel>>() {
+        call.enqueue(new Callback<List<OrderModel>>() {
             @Override
-            public void onResponse(Call<List<ProductModel>> call, Response<List<ProductModel>> response) {
+            public void onResponse(Call<List<OrderModel>> call, Response<List<OrderModel>> response) {
                 if (!response.isSuccessful()) {
                     ordersProgressBar.setVisibility(View.INVISIBLE);
                     Toast.makeText(OrdersActivity.this, "Could not get inventory. Error code: " +response.code(), Toast.LENGTH_SHORT).show();
                 } else {
-                    List<ProductModel> inventoryList = response.body();
-                    buildRecyclerView(inventoryList);
+                    List<OrderModel> orderList = response.body();
+                    buildRecyclerView(orderList);
                 }
             }
+
             @Override
-            public void onFailure(Call<List<ProductModel>> call, Throwable t) {
+            public void onFailure(Call<List<OrderModel>> call, Throwable t) {
                 ordersProgressBar.setVisibility(View.INVISIBLE);
-                Toast.makeText(OrdersActivity.this, "Request failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(OrdersActivity.this, "Connection Error", Toast.LENGTH_SHORT).show();
+
             }
         });
+
     }
 
-
-    private void buildRecyclerView(List<ProductModel> inventoryList) {
+    private void buildRecyclerView(List<OrderModel> orderList) {
         //Setting up widgets
         RecyclerView ordersRecyclerview  = findViewById(R.id.orders_recyclerview);
         ordersRecyclerview.setHasFixedSize(true);
-        InventoryAdapter adapter = new InventoryAdapter(inventoryList);
+        //InventoryAdapter adapter = new InventoryAdapter(inventoryList);
+        OrderAdapter adapter = new OrderAdapter(orderList);
         ordersRecyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         ordersRecyclerview.setAdapter(adapter);
         ordersProgressBar.setVisibility(View.INVISIBLE);
-
 
     }
 
