@@ -2,6 +2,7 @@ package api;
 
 import java.util.List;
 
+import Models.ConfirmOrderModel;
 import Models.OrderModel;
 import Models.ProductModel;
 import retrofit2.Call;
@@ -29,5 +30,8 @@ public interface ProductService {
     @GET("orders/{productOwnerId}")
     Call<List<OrderModel>> getMyOrders(@Path("productOwnerId") String productOwnerId);
 
+    //Confirm order update stock
+    @POST("products/stock-update")
+    Call<Void> updateStock(@Body ConfirmOrderModel order);
 
 }

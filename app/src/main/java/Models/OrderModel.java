@@ -23,9 +23,6 @@ public class OrderModel {
         this.buyerId = buyerId;
     }
 
-    public String get_id() {
-        return _id;
-    }
 
     public String getProductId() {
         return productId;

@@ -32,6 +32,11 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.orderViewHol
         void onItemClick(int position);
     }
 
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mListener = listener;
+    }
+
+
     public static class orderViewHolder  extends RecyclerView.ViewHolder {
         ImageView orderProductImage;
         TextView orderProductName;
@@ -42,7 +47,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.orderViewHol
             super(itemView);
 
             orderProductImage = itemView.findViewById(R.id.single_order_product_image);
-            orderProductName = itemView.findViewById(R.id.single_order_product_price);
+            orderProductName = itemView.findViewById(R.id.single_order_name);
+            orderProductPrice = itemView.findViewById(R.id.single_order_product_price);
             orderProductQuantity = itemView.findViewById(R.id.single_product_order_quantity);
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -71,7 +77,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.orderViewHol
     public void onBindViewHolder(@NonNull orderViewHolder holder, int position) {
         OrderModel order = orderList.get(position);
         holder.orderProductName.setText(order.getName());
-        //holder.orderProductPrice.setText(order.getPrice());l
+        holder.orderProductPrice.setText(order.getPrice());
         holder.orderProductQuantity.setText(String.valueOf(order.getQuantity()));
 
         if (order.getProductImage() == null) {

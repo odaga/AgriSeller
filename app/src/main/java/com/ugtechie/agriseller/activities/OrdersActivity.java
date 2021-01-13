@@ -5,6 +5,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -98,6 +99,23 @@ public class OrdersActivity extends AppCompatActivity {
         ordersRecyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         ordersRecyclerview.setAdapter(adapter);
         ordersProgressBar.setVisibility(View.INVISIBLE);
+        adapter.setOnItemClickListener(new OrderAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+               //e orderList.get(position);
+                //Toast.makeText(OrdersActivity.this, orderList.get(position).getProductId(), Toast.LENGTH_SHORT).show();
+                Intent intent  = new Intent(OrdersActivity.this, OrderDetailsActivity.class);
+                intent.putExtra("order_item_id", orderList.get(position).getProductId());
+                intent.putExtra("product_order_Name", orderList.get(position).getName());
+                intent.putExtra("product_order_price", orderList.get(position).getPrice());
+                intent.putExtra("product_order_quantity", orderList.get(position).getQuantity());
+                intent.putExtra("product_order_image", orderList.get(position).getProductImage());
+                intent.putExtra("product_order_buyer_id", orderList.get(position).getBuyerId());
+                Toast.makeText(OrdersActivity.this, orderList.get(position).getProductImage(), Toast.LENGTH_SHORT).show();
+                //startActivity(intent);
+
+            }
+        });
 
     }
 
