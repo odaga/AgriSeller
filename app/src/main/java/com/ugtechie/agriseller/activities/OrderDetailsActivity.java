@@ -41,7 +41,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
         LoaderTextView price = findViewById(R.id.detail_inventory_price);
         LoaderTextView quantity = findViewById(R.id.order_detail_quantity);
         progressBar = findViewById(R.id.orders_details_progressbar);
-        Button confirmOrderButtun = findViewById(R.id.button_confirm_order);
+        Button confirmOrderButton = findViewById(R.id.button_confirm_order);
         progressBar.setVisibility(View.INVISIBLE);
 
         name.setText(getIntent().getStringExtra("product_order_Name"));
@@ -49,7 +49,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
         quantity.setText(getIntent().getStringExtra("product_order_quantity"));
         Picasso.get().load(getIntent().getStringExtra("product_order_image")).into(image);
 
-        confirmOrderButtun.setOnClickListener(new View.OnClickListener() {
+        confirmOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);

@@ -49,7 +49,7 @@ public class OrdersActivity extends AppCompatActivity {
 
         //setting up widgets
         ordersProgressBar = findViewById(R.id.orders_progressbar);
-        ordersRecyclerview  = findViewById(R.id.orders_recyclerview);
+        ordersRecyclerview = findViewById(R.id.orders_recyclerview);
         textViewNoOrdersYet = findViewById(R.id.no_orders_yet_text);
         textViewNoOrdersYet.setVisibility(View.INVISIBLE);
 
@@ -73,7 +73,7 @@ public class OrdersActivity extends AppCompatActivity {
             public void onResponse(Call<List<OrderModel>> call, Response<List<OrderModel>> response) {
                 if (!response.isSuccessful()) {
                     ordersProgressBar.setVisibility(View.INVISIBLE);
-                    Toast.makeText(OrdersActivity.this, "Could not get inventory. Error code: " +response.code(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(OrdersActivity.this, "Could not get inventory. Error code: " + response.code(), Toast.LENGTH_SHORT).show();
                 } else {
                     List<OrderModel> orderList = response.body();
                     buildRecyclerView(orderList);
@@ -92,7 +92,7 @@ public class OrdersActivity extends AppCompatActivity {
 
     private void buildRecyclerView(List<OrderModel> orderList) {
         //Setting up widgets
-        RecyclerView ordersRecyclerview  = findViewById(R.id.orders_recyclerview);
+        RecyclerView ordersRecyclerview = findViewById(R.id.orders_recyclerview);
         ordersRecyclerview.setHasFixedSize(true);
         //InventoryAdapter adapter = new InventoryAdapter(inventoryList);
         OrderAdapter adapter = new OrderAdapter(orderList);
@@ -102,9 +102,9 @@ public class OrdersActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new OrderAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-               //e orderList.get(position);
+                //e orderList.get(position);
                 //Toast.makeText(OrdersActivity.this, orderList.get(position).getProductId(), Toast.LENGTH_SHORT).show();
-                Intent intent  = new Intent(OrdersActivity.this, OrderDetailsActivity.class);
+                Intent intent = new Intent(OrdersActivity.this, OrderDetailsActivity.class);
                 intent.putExtra("order_item_id", orderList.get(position).getProductId());
                 intent.putExtra("product_order_Name", orderList.get(position).getName());
                 intent.putExtra("product_order_price", orderList.get(position).getPrice());
@@ -112,7 +112,7 @@ public class OrdersActivity extends AppCompatActivity {
                 intent.putExtra("product_order_image", orderList.get(position).getProductImage());
                 intent.putExtra("product_order_buyer_id", orderList.get(position).getBuyerId());
                 Toast.makeText(OrdersActivity.this, orderList.get(position).getProductImage(), Toast.LENGTH_SHORT).show();
-                //startActivity(intent);
+                startActivity(intent);
 
             }
         });

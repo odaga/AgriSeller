@@ -46,7 +46,8 @@ public class HomeActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         SellerService sellerService = retrofit.create(SellerService.class);
-        Call<Seller> call = sellerService.getSellerProfile("5ff30f957412dc23442d1787");
+        //Call<Seller> call = sellerService.getSellerProfile("5ff30f957412dc23442d1787");
+        Call<Seller> call = sellerService.getSellerProfile(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
         call.enqueue(new Callback<Seller>() {
             @Override

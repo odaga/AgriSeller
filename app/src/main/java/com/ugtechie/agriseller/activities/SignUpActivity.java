@@ -117,7 +117,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 //Sign in success
                                 Log.d(TAG, "onComplete: createUSerWith Email successful");
                                 FirebaseUser user = task.getResult().getUser();
-                                userId = mAuth.getCurrentUser().getUid();
+                                userId = user.getUid();
 
                                 //Cresting the seller object to be passed to save profile method
                                 Seller newseller = new Seller(

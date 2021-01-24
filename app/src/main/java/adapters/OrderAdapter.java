@@ -76,8 +76,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.orderViewHol
     @Override
     public void onBindViewHolder(@NonNull orderViewHolder holder, int position) {
         OrderModel order = orderList.get(position);
+        Float total = Float.parseFloat(order.getPrice())  * Float.parseFloat(order.getQuantity());
         holder.orderProductName.setText(order.getName());
-        holder.orderProductPrice.setText(order.getPrice());
+        //holder.orderProductPrice.setText(order.getPrice());
+        holder.orderProductPrice.setText(String.valueOf(String.valueOf(total)));
         holder.orderProductQuantity.setText(String.valueOf(order.getQuantity()));
 
         if (order.getProductImage() == null) {
